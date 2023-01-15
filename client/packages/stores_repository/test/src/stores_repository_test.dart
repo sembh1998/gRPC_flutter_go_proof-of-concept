@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:stores_api/stores_api.dart';
 import 'package:test/test.dart';
-import 'package:stores_repository/stores_repository.dart';
 
 void main() {
   group('StoresRepository', () {
     test('can be instantiated', () {
-      expect(StoresRepository(), isNotNull);
+      expect(Store(), isNotNull);
     });
   });
 }

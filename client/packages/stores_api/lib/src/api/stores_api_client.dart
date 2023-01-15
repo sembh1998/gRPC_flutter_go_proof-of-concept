@@ -33,16 +33,16 @@ class StoresApiClient {
   Future<Store> getStoreById({
     required String id,
   }) async {
-    final user = await stub.getStoreById(StoreByIdRequest(id: id));
+    final store = await stub.getStoreById(StoreByIdRequest(id: id));
 
-    return user;
+    return store;
   }
 
   Future<Store> getStoreByName({
     required String name,
   }) async {
-    final user = await stub.getStoreByName(StoreByNameRequest(name: name));
+    final store = await stub.getStoreByName(StoreByNameRequest(name: name));
 
-    return user;
+    return store;
   }
 }
