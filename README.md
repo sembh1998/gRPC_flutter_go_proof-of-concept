@@ -13,7 +13,7 @@
 </p>
 <!-- <div style="border-bottom: 1px solid #aaa; width: 600px;"> -->
 
-<p>This repository uses Flutter for the client app and Go to Server for the purpose of building an app that uses gRCP for communication.</p>
+<p>This repository uses Flutter for the client app and Go to Server for the purpose of building an app that uses gRPC for communication.</p>
 </br>
 
 # Prepare environments

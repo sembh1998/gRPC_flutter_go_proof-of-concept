@@ -1,4 +1,4 @@
-package com.flutter.go.grcp.client
+package com.flutter.go.grpc.client
 
 import io.flutter.embedding.android.FlutterActivity
 
