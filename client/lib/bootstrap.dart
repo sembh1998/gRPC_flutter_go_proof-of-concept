@@ -30,7 +30,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   Bloc.observer = AppBlocObserver();
 
   // Stores
-  final storesClient = StoresApiClient(baseUrl: '', port: 5000);
+  final storesClient = StoresApiClient(baseUrl: 'localhost', port: 9995);
 
   await runZonedGuarded(
     () async => runApp(
