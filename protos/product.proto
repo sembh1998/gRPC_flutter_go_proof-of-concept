@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+import "protos/error.proto";
+
+option go_package = "github.com/sembh1998/gRCP_flutter_go_proof-of-concept/server/module/infrastructure/serializer/grpc/proto";
+
+message ProductRequest {
+    string idStoreBranch = 1;
+}
+
+message ProductByIdRequest {
+    string id = 1;
+}
+
+message ProductByNameRequest {
+    string name = 1;
+}
+
+message ProductsResponse {
+    repeated Product products = 1;
+    bool success = 2;
+    optional Error error = 3;
+}
+
+message ProductResponse {
+    Product product = 1;
+    bool success = 2;
+    optional Error error = 3;
+}
+
+message Product {
+    string id = 1;
+    string name = 2;
+    string sku = 3;
+    string barCode = 4;
+    string shortName = 5;
+    string urlImage = 6;
+    string price = 7;
+    string stock = 8;
+}
+
+service ProductService {
+    rpc getProducts(ProductRequest) returns (ProductsResponse);
+    rpc getProductById(ProductByIdRequest) returns (ProductResponse);
+}
