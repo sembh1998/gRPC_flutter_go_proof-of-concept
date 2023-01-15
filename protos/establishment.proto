@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+import "protos/error.proto";
+
+option go_package = "github.com/sembh1998/gRCP_flutter_go_proof-of-concept/server/module/infrastructure/serializer/grpc/proto";
+
+message EstablishmentsByStoreIdRequest {
+    string idStore = 1;
+}
+
+message EstablishmentByIdRequest {
+    string idEstablishment = 1;
+}
+
+message EstablishmentByNameRequest {
+    string name = 1;
+}
+
+message EstablishmentsResponse {
+    repeated Establishment establishments = 1;
+    bool success = 2;
+    optional Error error = 3;
+}
+
+message EstablishmentResponse {
+    Establishment establishment = 1;
+    bool success = 2;
+    optional Error error = 3;
+}
+
+message Establishment {
+    string id = 1;
+    string name = 2;
+}
+
+service EstablishmentService {
+    rpc getEstablishmentsPerStore(EstablishmentsByStoreIdRequest) returns (EstablishmentsResponse);
+    rpc getEstablishmentById(EstablishmentByIdRequest) returns (EstablishmentResponse);
+}

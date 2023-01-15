@@ -1,10 +1,10 @@
 syntax = "proto3";
 
+import "protos/error.proto";
+
 option go_package = "github.com/sembh1998/gRCP_flutter_go_proof-of-concept/server/module/infrastructure/serializer/grpc/proto";
 
-message StoreRequest {
-    string id = 1;
-}
+message StoreRequest {}
 
 message StoreByIdRequest {
     string id = 1;
@@ -14,8 +14,16 @@ message StoreByNameRequest {
     string name = 1;
 }
 
-message StoreReponse {
-    repeated Store Stores = 1;
+message StoresResponse {
+    repeated Store stores = 1;
+    bool success = 2;
+    optional Error error = 3;
+}
+
+message StoreResponse {
+    repeated Store store = 1;
+    bool success = 2;
+    optional Error error = 3;
 }
 
 message Store {
@@ -24,7 +32,7 @@ message Store {
 }
 
 service StoreService {
-    rpc getStores(StoreRequest) returns (StoreReponse);
-    rpc getStoreById(StoreByIdRequest) returns (Store);
-    rpc getStoreByName(StoreByNameRequest) returns (Store);
+    rpc getStores(StoreRequest) returns (StoresResponse);
+    rpc getStoreById(StoreByIdRequest) returns (StoreResponse);
+    rpc getStoreByName(StoreByNameRequest) returns (StoreResponse);
 }
