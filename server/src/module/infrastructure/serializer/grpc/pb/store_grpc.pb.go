@@ -22,9 +22,9 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type StoreServiceClient interface {
-	GetStores(ctx context.Context, in *StoreRequest, opts ...grpc.CallOption) (*StoreReponse, error)
-	GetStoreById(ctx context.Context, in *StoreByIdRequest, opts ...grpc.CallOption) (*Store, error)
-	GetStoreByName(ctx context.Context, in *StoreByNameRequest, opts ...grpc.CallOption) (*Store, error)
+	GetStores(ctx context.Context, in *StoreRequest, opts ...grpc.CallOption) (*StoresResponse, error)
+	GetStoreById(ctx context.Context, in *StoreByIdRequest, opts ...grpc.CallOption) (*StoreResponse, error)
+	GetStoreByName(ctx context.Context, in *StoreByNameRequest, opts ...grpc.CallOption) (*StoreResponse, error)
 }
 
 type storeServiceClient struct {
@@ -35,8 +35,8 @@ func NewStoreServiceClient(cc grpc.ClientConnInterface) StoreServiceClient {
 	return &storeServiceClient{cc}
 }
 
-func (c *storeServiceClient) GetStores(ctx context.Context, in *StoreRequest, opts ...grpc.CallOption) (*StoreReponse, error) {
-	out := new(StoreReponse)
+func (c *storeServiceClient) GetStores(ctx context.Context, in *StoreRequest, opts ...grpc.CallOption) (*StoresResponse, error) {
+	out := new(StoresResponse)
 	err := c.cc.Invoke(ctx, "/StoreService/getStores", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -44,8 +44,8 @@ func (c *storeServiceClient) GetStores(ctx context.Context, in *StoreRequest, op
 	return out, nil
 }
 
-func (c *storeServiceClient) GetStoreById(ctx context.Context, in *StoreByIdRequest, opts ...grpc.CallOption) (*Store, error) {
-	out := new(Store)
+func (c *storeServiceClient) GetStoreById(ctx context.Context, in *StoreByIdRequest, opts ...grpc.CallOption) (*StoreResponse, error) {
+	out := new(StoreResponse)
 	err := c.cc.Invoke(ctx, "/StoreService/getStoreById", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -53,8 +53,8 @@ func (c *storeServiceClient) GetStoreById(ctx context.Context, in *StoreByIdRequ
 	return out, nil
 }
 
-func (c *storeServiceClient) GetStoreByName(ctx context.Context, in *StoreByNameRequest, opts ...grpc.CallOption) (*Store, error) {
-	out := new(Store)
+func (c *storeServiceClient) GetStoreByName(ctx context.Context, in *StoreByNameRequest, opts ...grpc.CallOption) (*StoreResponse, error) {
+	out := new(StoreResponse)
 	err := c.cc.Invoke(ctx, "/StoreService/getStoreByName", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -66,9 +66,9 @@ func (c *storeServiceClient) GetStoreByName(ctx context.Context, in *StoreByName
 // All implementations must embed UnimplementedStoreServiceServer
 // for forward compatibility
 type StoreServiceServer interface {
-	GetStores(context.Context, *StoreRequest) (*StoreReponse, error)
-	GetStoreById(context.Context, *StoreByIdRequest) (*Store, error)
-	GetStoreByName(context.Context, *StoreByNameRequest) (*Store, error)
+	GetStores(context.Context, *StoreRequest) (*StoresResponse, error)
+	GetStoreById(context.Context, *StoreByIdRequest) (*StoreResponse, error)
+	GetStoreByName(context.Context, *StoreByNameRequest) (*StoreResponse, error)
 	mustEmbedUnimplementedStoreServiceServer()
 }
 
@@ -76,13 +76,13 @@ type StoreServiceServer interface {
 type UnimplementedStoreServiceServer struct {
 }
 
-func (UnimplementedStoreServiceServer) GetStores(context.Context, *StoreRequest) (*StoreReponse, error) {
+func (UnimplementedStoreServiceServer) GetStores(context.Context, *StoreRequest) (*StoresResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStores not implemented")
 }
-func (UnimplementedStoreServiceServer) GetStoreById(context.Context, *StoreByIdRequest) (*Store, error) {
+func (UnimplementedStoreServiceServer) GetStoreById(context.Context, *StoreByIdRequest) (*StoreResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStoreById not implemented")
 }
-func (UnimplementedStoreServiceServer) GetStoreByName(context.Context, *StoreByNameRequest) (*Store, error) {
+func (UnimplementedStoreServiceServer) GetStoreByName(context.Context, *StoreByNameRequest) (*StoreResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStoreByName not implemented")
 }
 func (UnimplementedStoreServiceServer) mustEmbedUnimplementedStoreServiceServer() {}

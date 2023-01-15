@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-import "protos/error.proto";
+import "error.proto";
 
 option go_package = "github.com/sembh1998/gRCP_flutter_go_proof-of-concept/server/module/infrastructure/serializer/grpc/proto";
 
@@ -17,13 +17,13 @@ message MemberByNameRequest {
 message MembersResponse {
     repeated Member members = 1;
     bool success = 2;
-    optional Error error = 3;
+    Error error = 3;
 }
 
 message MemberResponse {
     Member member = 1;
     bool success = 2;
-    optional Error error = 3;
+    Error error = 3;
 }
 
 message Member {
