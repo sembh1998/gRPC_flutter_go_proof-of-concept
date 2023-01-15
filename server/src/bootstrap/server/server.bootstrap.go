@@ -2,7 +2,6 @@ package server
 
 import (
 	"net/http"
-	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sembh1998/gRPC_flutter_go_proof-of-concept/server/src/bootstrap"
@@ -33,6 +32,6 @@ func (s *Server) Initialice() error {
 		})
 	})
 
-	router.Run(":" + os.Getenv("SERVER_PORT"))
+	router.Run(":9995")
 	return nil
 }
