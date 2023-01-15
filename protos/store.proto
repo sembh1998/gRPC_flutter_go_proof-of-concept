@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+message StoreRequest {
+    string id = 1;
+}
+
+message StoreByIdRequest {
+    string id = 1;
+}
+
+message StoreByNameRequest {
+    string name = 1;
+}
+
+message StoreReponse {
+    repeated Store Stores = 1;
+}
+
+message Store {
+    string id = 1;
+    string name = 2;
+}
+
+service StoreService {
+    rpc getStores(StoreRequest) returns (StoreReponse);
+    rpc getStoreById(StoreByIdRequest) returns (Store);
+    rpc getStoreByName(StoreByNameRequest) returns (Store);
+}

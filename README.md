@@ -16,6 +16,21 @@
 <p>This repository uses Flutter for the client app and Go to Server for the purpose of building an app that uses gRCP for communication.</p>
 </br>
 
+# Prepare environments
+
+- Install Protobuf compiler:
+
+```sh
+brew install protobuf
+```
+
+- Install Dart-plugin for Protobuf compiler:
+
+```sh
+pub global activate protoc_plugin
+export PATH=$PATH:$HOME/.pub-cache/bin
+```
+
 # Flutter getting Started 🚀
 
 This project contains 3 flavors:
@@ -40,3 +55,9 @@ $ flutter run --flavor production --target lib/main_production.dart
 _\*Client works on iOS, Android, Web, and Windows._
 
 ---
+
+# Generate methods for client
+
+```sh
+protoc --dart_out=grpc:client/lib/core/generated -Iprotos protos/store.proto
+```
