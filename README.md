@@ -59,5 +59,5 @@ _\*Client works on iOS, Android, Web, and Windows._
 # Generate methods for client
 
 ```sh
-protoc --dart_out=grpc:client/lib/core/generated -Iprotos protos/store.proto
+protoc --dart_out=grpc:client/packages/stores_api/lib/src/generated -Iprotos protos/store.proto
 ```
