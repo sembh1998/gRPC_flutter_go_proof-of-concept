@@ -1,20 +1,16 @@
-package database
+package mongo
 
 import (
 	"context"
 	"log"
 	"os"
 
-	"go.mongodb.org/mongo-driver/mongo"
+	mongodriver "go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func Funca() {
-	log.Printf("Funca server bootstrap")
-}
-
 type MongoConnection struct {
-	Conn *mongo.Database
+	Conn *mongodriver.Database
 }
 
 var mongoSingleton *MongoConnection
@@ -22,7 +18,7 @@ var mongoSingleton *MongoConnection
 func GetMongoConnection() *MongoConnection {
 	if mongoSingleton == nil {
 		uri := os.Getenv("MONGODB_URI")
-		client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
+		client, err := mongodriver.Connect(context.TODO(), options.Client().ApplyURI(uri))
 		if err != nil {
 			panic(err)
 		}
