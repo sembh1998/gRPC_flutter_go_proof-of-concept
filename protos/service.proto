@@ -1,7 +1,10 @@
 syntax = "proto3";
 
 // import the others
-import "error.proto";
+import "store.proto";
+import "product.proto";
+import "member.proto";
+import "establishment.proto";
 
 option go_package = "github.com/sembh1998/gRCP_flutter_go_proof-of-concept/server/module/infrastructure/serializer/grpc/pb";
 
