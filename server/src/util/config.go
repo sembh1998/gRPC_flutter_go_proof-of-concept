@@ -15,7 +15,8 @@ type Config struct {
 	HTTPServerAddress string `mapstructure:"HTTP_SERVER_ADDRESS"`
 	GRPCServerAddress string `mapstructure:"GRPC_SERVER_ADDRESS"`
 	//MONGODB_URI
-	MongoDBURI string `mapstructure:"MONGODB_URI"`
+	MongoDBURI    string `mapstructure:"MONGODB_URI"`
+	MongoDatabase string `mapstructure:"MONGODB_DATABASE"`
 	// FIREBASE_DATABASE_URL
 	// FIREBASE_SERVICE_ACCOUNT_KEY_JSON_PATH
 	FirebaseDatabaseURL               string `mapstructure:"FIREBASE_DATABASE_URL"`

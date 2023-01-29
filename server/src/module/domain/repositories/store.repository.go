@@ -6,5 +6,4 @@ type StoreRepository interface {
 	FindAll() ([]*entities.Store, error)
 	FindById(id string) (*entities.Store, error)
 	FindByName(name string) ([]*entities.Store, error)
-	FindByEstablishmentId(establishmentId string) ([]*entities.Store, error)
 }

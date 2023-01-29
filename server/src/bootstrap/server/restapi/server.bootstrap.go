@@ -5,16 +5,17 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/sembh1998/gRPC_flutter_go_proof-of-concept/server/src/bootstrap"
+	"github.com/sembh1998/gRPC_flutter_go_proof-of-concept/server/src/util"
 )
 
 type Server struct {
 }
 
-func NewServer() (bootstrap.Bootstrap, error) {
+func NewServer(config util.Config) (bootstrap.Bootstrap, error) {
 	return &Server{}, nil
 }
 
-func (s *Server) Initialice() error {
+func (s *Server) Initialice(config util.Config) error {
 	router := gin.Default()
 	router.GET("/ping", func(c *gin.Context) {
 
@@ -32,6 +33,6 @@ func (s *Server) Initialice() error {
 		})
 	})
 
-	router.Run(":9995")
+	router.Run(config.HTTPServerAddress)
 	return nil
 }
