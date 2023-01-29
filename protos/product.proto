@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "error.proto";
 
-option go_package = "github.com/sembh1998/gRCP_flutter_go_proof-of-concept/server/module/infrastructure/serializer/grpc/proto";
+option go_package = "github.com/sembh1998/gRCP_flutter_go_proof-of-concept/server/module/infrastructure/serializer/grpc/pb";
 
 message ProductRequest {
     string idEstablishment = 1;
@@ -39,7 +39,3 @@ message Product {
     string stock = 8;
 }
 
-service ProductService {
-    rpc getProducts(ProductRequest) returns (ProductsResponse);
-    rpc getProductById(ProductByIdRequest) returns (ProductResponse);
-}

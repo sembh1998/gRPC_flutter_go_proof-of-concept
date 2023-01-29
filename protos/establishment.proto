@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "error.proto";
 
-option go_package = "github.com/sembh1998/gRCP_flutter_go_proof-of-concept/server/module/infrastructure/serializer/grpc/proto";
+option go_package = "github.com/sembh1998/gRCP_flutter_go_proof-of-concept/server/module/infrastructure/serializer/grpc/pb";
 
 message EstablishmentsByStoreIdRequest {
     string idStore = 1;
@@ -31,9 +31,4 @@ message EstablishmentResponse {
 message Establishment {
     string id = 1;
     string name = 2;
-}
-
-service EstablishmentService {
-    rpc getEstablishmentsPerStore(EstablishmentsByStoreIdRequest) returns (EstablishmentsResponse);
-    rpc getEstablishmentById(EstablishmentByIdRequest) returns (EstablishmentResponse);
 }

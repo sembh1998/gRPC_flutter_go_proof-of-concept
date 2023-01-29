@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/sembh1998/gRCP_flutter_go_proof-of-concept/server/module/infrastructure/serializer/grpc/proto";
+option go_package = "github.com/sembh1998/gRCP_flutter_go_proof-of-concept/server/module/infrastructure/serializer/grpc/pb";
 
 message Error {
     uint32 code = 1;
