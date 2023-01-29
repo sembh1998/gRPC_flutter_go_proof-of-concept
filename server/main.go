@@ -12,7 +12,11 @@ import (
 )
 
 func main() {
-
+	config, err := util.LoadConfig(".")
+	if err != nil {
+		log.Fatal("cannot load config", err)
+	}
+	runGrpcServer(config)
 }
 
 func runGrpcServer(config util.Config) {
@@ -22,7 +26,7 @@ func runGrpcServer(config util.Config) {
 	}
 
 	grpcServer := grpc.NewServer()
-	pb.RegisterStoreServiceServer(grpcServer, server)
+	pb.RegisterModuleServiceServer(grpcServer, server)
 	reflection.Register(grpcServer)
 
 	listener, err := net.Listen("tcp", config.GRPCServerAddress)

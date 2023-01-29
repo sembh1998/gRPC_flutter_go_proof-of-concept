@@ -13,6 +13,9 @@ service ModuleService {
     rpc getStores(StoreRequest) returns (StoresResponse);
     rpc getStoreById(StoreByIdRequest) returns (StoreResponse);
     rpc getStoreByName(StoreByNameRequest) returns (StoreResponse);
+    
+    rpc getEstablishmentsPerStore(EstablishmentsByStoreIdRequest) returns (EstablishmentsResponse);
+    rpc getEstablishmentById(EstablishmentByIdRequest) returns (EstablishmentResponse);
 
     rpc getProducts(ProductRequest) returns (ProductsResponse);
     rpc getProductById(ProductByIdRequest) returns (ProductResponse);
@@ -21,7 +24,5 @@ service ModuleService {
     rpc getMemberById(MemberByIdRequest) returns (MemberResponse);
     rpc createMember(Member) returns (MemberResponse);
 
-    rpc getEstablishmentsPerStore(EstablishmentsByStoreIdRequest) returns (EstablishmentsResponse);
-    rpc getEstablishmentById(EstablishmentByIdRequest) returns (EstablishmentResponse);
 }
 

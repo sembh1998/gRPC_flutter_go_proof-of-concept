@@ -7,7 +7,7 @@ import (
 
 type Server struct {
 	config util.Config
-	pb.UnimplementedStoreServiceServer
+	pb.UnimplementedModuleServiceServer
 }
 
 func NewServer(config util.Config) (*Server, error) {
