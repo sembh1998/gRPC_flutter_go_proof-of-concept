@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+// import the others
+import "error.proto";
+
+option go_package = "github.com/sembh1998/gRCP_flutter_go_proof-of-concept/server/module/infrastructure/serializer/grpc/pb";
+
+
+service ModuleService {
+    rpc getStores(StoreRequest) returns (StoresResponse);
+    rpc getStoreById(StoreByIdRequest) returns (StoreResponse);
+    rpc getStoreByName(StoreByNameRequest) returns (StoreResponse);
+
+    rpc getProducts(ProductRequest) returns (ProductsResponse);
+    rpc getProductById(ProductByIdRequest) returns (ProductResponse);
+
+    rpc getMembers(MemberRequest) returns (MembersResponse);
+    rpc getMemberById(MemberByIdRequest) returns (MemberResponse);
+    rpc createMember(Member) returns (MemberResponse);
+
+    rpc getEstablishmentsPerStore(EstablishmentsByStoreIdRequest) returns (EstablishmentsResponse);
+    rpc getEstablishmentById(EstablishmentByIdRequest) returns (EstablishmentResponse);
+}
+
