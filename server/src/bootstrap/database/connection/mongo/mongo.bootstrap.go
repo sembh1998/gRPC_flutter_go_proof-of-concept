@@ -22,7 +22,7 @@ func GetMongoConnection() *MongoConnection {
 		if err != nil {
 			panic(err)
 		}
-		conn := client.Database("database01")
+		conn := client.Database(os.Getenv("MONGODB_DATABASE"))
 		mongoSingleton = &MongoConnection{
 			Conn: conn,
 		}
