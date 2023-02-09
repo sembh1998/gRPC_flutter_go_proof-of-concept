@@ -9,7 +9,7 @@ import (
 	"github.com/sembh1998/gRPC_flutter_go_proof-of-concept/server/src/module/application"
 	"github.com/sembh1998/gRPC_flutter_go_proof-of-concept/server/src/module/infrastructure/mongoimpl"
 	"github.com/sembh1998/gRPC_flutter_go_proof-of-concept/server/src/module/infrastructure/serializer/grpc/pb"
-	"github.com/sembh1998/gRPC_flutter_go_proof-of-concept/server/src/module/interfaces/controllers"
+	"github.com/sembh1998/gRPC_flutter_go_proof-of-concept/server/src/module/interfaces/grpc/controllers"
 	"github.com/sembh1998/gRPC_flutter_go_proof-of-concept/server/src/util"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
