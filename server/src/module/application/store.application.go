@@ -16,3 +16,7 @@ func NewStoreApplication(storeRepository repositories.StoreRepository) *StoreApp
 func (s *StoreApplication) FindAll() ([]*entities.Store, error) {
 	return s.StoreRepository.FindAll()
 }
+
+func (s *StoreApplication) FindById(id string) (*entities.Store, error) {
+	return s.StoreRepository.FindById(id)
+}

@@ -18,8 +18,8 @@ type Server struct {
 type ControllerApplicationsEntry struct {
 	StoreApplication         *application.StoreApplication
 	MemberApplication        *application.MemberApplication
-	establishmentApplication *application.EstablishmentApplication
-	productApplication       *application.ProductApplication
+	EstablishmentApplication *application.EstablishmentApplication
+	ProductApplication       *application.ProductApplication
 }
 
 func NewServer(config util.Config, entry ControllerApplicationsEntry) (*Server, error) {
@@ -27,7 +27,7 @@ func NewServer(config util.Config, entry ControllerApplicationsEntry) (*Server, 
 		config:                   config,
 		storeApplication:         entry.StoreApplication,
 		memberApplication:        entry.MemberApplication,
-		establishmentApplication: entry.establishmentApplication,
-		productApplication:       entry.productApplication,
+		establishmentApplication: entry.EstablishmentApplication,
+		productApplication:       entry.ProductApplication,
 	}, nil
 }

@@ -12,7 +12,7 @@ func main() {
 	if err != nil {
 		log.Fatal("cannot load config", err)
 	}
-	server, err := grpcapi.NewServer(config)
+	server, err := grpcapi.NewServer()
 	if err != nil {
 		log.Fatal("cannot create grpc server", err)
 	}

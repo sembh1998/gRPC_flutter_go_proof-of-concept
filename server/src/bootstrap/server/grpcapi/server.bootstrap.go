@@ -18,7 +18,7 @@ import (
 type Server struct {
 }
 
-func NewServer(config util.Config) (bootstrap.Bootstrap, error) {
+func NewServer() (bootstrap.Bootstrap, error) {
 	return &Server{}, nil
 }
 
@@ -29,13 +29,14 @@ func (s *Server) Initialice(config util.Config) error {
 
 	conn := mongo.GetMongoConnection().Conn
 	storeInfrastructure := mongoimpl.NewStoreMongoInfrastructure(conn)
-	if storeInfrastructure == nil {
-		log.Fatal("cannot create store infrastructure")
-	}
+	establismentInfrastructure := mongoimpl.NewEstablishmentMongoInfrastructure(conn)
+
 	storeApplication := application.NewStoreApplication(storeInfrastructure)
+	establishmentApplication := application.NewEstablishmentApplication(establismentInfrastructure)
 
 	controllerEntry := controllers.ControllerApplicationsEntry{
-		StoreApplication: storeApplication,
+		StoreApplication:         storeApplication,
+		EstablishmentApplication: establishmentApplication,
 	}
 
 	server, err := controllers.NewServer(config, controllerEntry)
