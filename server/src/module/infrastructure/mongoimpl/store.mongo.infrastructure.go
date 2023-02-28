@@ -8,6 +8,7 @@ import (
 	"github.com/sembh1998/gRPC_flutter_go_proof-of-concept/server/src/module/infrastructure/mongoimpl/model"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type StoreMongoInfrastructure struct {
@@ -21,7 +22,14 @@ func NewStoreMongoInfrastructure(db *mongo.Database) repositories.StoreRepositor
 func (s *StoreMongoInfrastructure) FindAll() ([]*entities.Store, error) {
 	var stores []*model.StoreMongoModel
 	coll := s.DB.Collection("stores")
-	cursor, err := coll.Find(context.Background(), bson.D{})
+	cursor, err := coll.Find(context.Background(), bson.D{}, &options.FindOptions{
+		Sort: bson.M{
+			"name": 1,
+		},
+		Projection: bson.M{
+			"establishments": 0,
+		},
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -38,7 +46,11 @@ func (s *StoreMongoInfrastructure) FindAll() ([]*entities.Store, error) {
 func (s *StoreMongoInfrastructure) FindById(id string) (*entities.Store, error) {
 	var store *model.StoreMongoModel
 	coll := s.DB.Collection("stores")
-	err := coll.FindOne(context.Background(), bson.M{"id": id}).Decode(&store)
+	err := coll.FindOne(context.Background(), bson.M{"id": id}, &options.FindOneOptions{
+		Projection: bson.M{
+			"establishments": 0,
+		},
+	}).Decode(&store)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +60,11 @@ func (s *StoreMongoInfrastructure) FindById(id string) (*entities.Store, error) 
 func (s *StoreMongoInfrastructure) FindByName(name string) ([]*entities.Store, error) {
 	var stores []*model.StoreMongoModel
 	coll := s.DB.Collection("stores")
-	cursor, err := coll.Find(context.Background(), bson.M{"name": name})
+	cursor, err := coll.Find(context.Background(), bson.M{"name": name}, &options.FindOptions{
+		Projection: bson.M{
+			"establishments": 0,
+		},
+	})
 	if err != nil {
 		return nil, err
 	}

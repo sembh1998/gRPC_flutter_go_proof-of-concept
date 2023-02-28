@@ -9,6 +9,7 @@ import (
 	"github.com/sembh1998/gRPC_flutter_go_proof-of-concept/server/src/module/infrastructure/mongoimpl/model"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type EstablishmentMongoInfrastructure struct {
@@ -25,7 +26,15 @@ func (e EstablishmentMongoInfrastructure) FindById(id string) (*entities.Establi
 
 	filter := bson.M{"establishments": bson.M{"$elemMatch": bson.M{"id": id}}}
 
-	err := coll.FindOne(context.Background(), filter).Decode(&store)
+	// create a projection that excludes the products field
+	projection := bson.M{"establishments": bson.M{
+		"id":   1,
+		"name": 1,
+	}}
+
+	err := coll.FindOne(context.Background(), filter, &options.FindOneOptions{
+		Projection: projection,
+	}).Decode(&store)
 	if err != nil {
 		return nil, err
 	}
@@ -44,12 +53,20 @@ func (e EstablishmentMongoInfrastructure) FindById(id string) (*entities.Establi
 func (e EstablishmentMongoInfrastructure) FindAllByStoreId(storeId string) ([]*entities.Establishment, error) {
 	var store *model.StoreMongoModel
 	coll := e.DB.Collection("stores")
-	err := coll.FindOne(context.Background(), bson.M{"id": storeId}).Decode(&store)
+	// create a projection that excludes the products field
+	projection := bson.M{"establishments": bson.M{
+		"id":   1,
+		"name": 1,
+	}}
+	err := coll.FindOne(context.Background(), bson.M{"id": storeId}, &options.FindOneOptions{
+		Projection: projection,
+	}).Decode(&store)
 	if err != nil {
 		return nil, err
 	}
 	establishments := make([]*entities.Establishment, 0)
 	for _, establishment := range store.Establishments {
+		log.Printf("establishment: %v", establishment)
 		establishments = append(establishments, establishment.ToEntity())
 	}
 	return establishments, nil
