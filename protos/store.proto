@@ -21,7 +21,7 @@ message StoresResponse {
 }
 
 message StoreResponse {
-    repeated Store store = 1;
+    Store store = 1;
     bool success = 2;
     Error error = 3;
 }
