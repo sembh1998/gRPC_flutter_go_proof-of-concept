@@ -2,3 +2,4 @@ server/bin
 server/app.env
 server/app.env
 *.env
+server/protoc.exe

@@ -48,11 +48,9 @@ func (s *Server) GetStoreById(ctx context.Context, req *pb.StoreByIdRequest) (*p
 	}
 
 	return &pb.StoreResponse{
-		Store: []*pb.Store{
-			{
-				Id:   store.ID,
-				Name: store.Name,
-			},
+		Store: &pb.Store{
+			Id:   store.ID,
+			Name: store.Name,
 		},
 		Success: true,
 	}, nil
