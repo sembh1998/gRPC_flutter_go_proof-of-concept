@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"log"
+
 	"github.com/sembh1998/gRPC_flutter_go_proof-of-concept/server/src/module/infrastructure/serializer/grpc/pb"
 	"golang.org/x/net/context"
 )
@@ -33,6 +35,7 @@ func (s *Server) GetEstablishmentsPerStore(ctx context.Context, req *pb.Establis
 func (s *Server) GetEstablishmentById(ctx context.Context, req *pb.EstablishmentByIdRequest) (*pb.EstablishmentResponse, error) {
 	establishment, err := s.establishmentApplication.FindById(req.IdEstablishment)
 	if err != nil {
+		log.Printf("Error: %v", err)
 		return &pb.EstablishmentResponse{
 			Error: &pb.Error{
 				Code:    500,

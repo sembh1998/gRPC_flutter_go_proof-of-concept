@@ -6,6 +6,7 @@ import (
 
 	"github.com/sembh1998/gRPC_flutter_go_proof-of-concept/server/src/module/domain/entities"
 	"github.com/sembh1998/gRPC_flutter_go_proof-of-concept/server/src/module/domain/repositories"
+	"github.com/sembh1998/gRPC_flutter_go_proof-of-concept/server/src/module/helpers/mongohelper"
 	"github.com/sembh1998/gRPC_flutter_go_proof-of-concept/server/src/module/infrastructure/mongoimpl/model"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -22,20 +23,25 @@ func NewEstablishmentMongoInfrastructure(db *mongo.Database) repositories.Establ
 
 func (e EstablishmentMongoInfrastructure) FindById(id string) (*entities.Establishment, error) {
 	var store *model.StoreMongoModel
-	coll := e.DB.Collection("stores")
+	empStore := &model.StoreMongoModel{Establishments: []model.EstablishmentMongoModel{{}, {}}}
+	empEstablisment := &model.EstablishmentMongoModel{}
 
-	filter := bson.M{"establishments": bson.M{"$elemMatch": bson.M{"id": id}}}
+	log.Printf("tag: %v", mongohelper.GetTagValue(&empStore.Establishments, empStore, "bson"))
+	coll := e.DB.Collection("stores")
+	log.Printf("tag: %v", mongohelper.GetTagValue(&empStore.Establishments, empStore, "bson"))
+	filter := bson.M{mongohelper.GetTagValue(empStore.Establishments, empStore, "bson"): bson.M{"$elemMatch": bson.M{mongohelper.GetTagValue(empEstablisment.ID, empEstablisment, "bson"): id}}}
 
 	// create a projection that excludes the products field
-	projection := bson.M{"establishments": bson.M{
-		"id":   1,
-		"name": 1,
+	projection := bson.M{mongohelper.GetTagValue(empStore.Establishments, empStore, "bson"): bson.M{
+		mongohelper.GetTagValue(empEstablisment.ID, empEstablisment, "bson"):   1,
+		mongohelper.GetTagValue(empEstablisment.Name, empEstablisment, "bson"): 1,
 	}}
 
 	err := coll.FindOne(context.Background(), filter, &options.FindOneOptions{
 		Projection: projection,
 	}).Decode(&store)
 	if err != nil {
+		log.Printf("error: %v", err)
 		return nil, err
 	}
 	log.Printf("store: %v", store)
