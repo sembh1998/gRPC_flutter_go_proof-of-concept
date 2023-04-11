@@ -23,18 +23,16 @@ func NewEstablishmentMongoInfrastructure(db *mongo.Database) repositories.Establ
 
 func (e EstablishmentMongoInfrastructure) FindById(id string) (*entities.Establishment, error) {
 	var store *model.StoreMongoModel
-	empStore := &model.StoreMongoModel{Establishments: []model.EstablishmentMongoModel{{}, {}}}
-	empEstablisment := &model.EstablishmentMongoModel{}
+	empStore := model.StoreMongoModel{Establishments: []model.EstablishmentMongoModel{{}, {}}}
+	empEstablisment := model.EstablishmentMongoModel{}
 
-	log.Printf("tag: %v", mongohelper.GetTagValue(&empStore.Establishments, empStore, "bson"))
 	coll := e.DB.Collection("stores")
-	log.Printf("tag: %v", mongohelper.GetTagValue(&empStore.Establishments, empStore, "bson"))
-	filter := bson.M{mongohelper.GetTagValue(empStore.Establishments, empStore, "bson"): bson.M{"$elemMatch": bson.M{mongohelper.GetTagValue(empEstablisment.ID, empEstablisment, "bson"): id}}}
+	filter := bson.M{mongohelper.GetTagValue(empStore, "Establishments", "bson"): bson.M{"$elemMatch": bson.M{mongohelper.GetTagValue(empEstablisment, "ID", "bson"): id}}}
 
 	// create a projection that excludes the products field
-	projection := bson.M{mongohelper.GetTagValue(empStore.Establishments, empStore, "bson"): bson.M{
-		mongohelper.GetTagValue(empEstablisment.ID, empEstablisment, "bson"):   1,
-		mongohelper.GetTagValue(empEstablisment.Name, empEstablisment, "bson"): 1,
+	projection := bson.M{mongohelper.GetTagValue(empStore, "Establishments", "bson"): bson.M{
+		mongohelper.GetTagValue(empEstablisment, "ID", "bson"):   1,
+		mongohelper.GetTagValue(empEstablisment, "Name", "bson"): 1,
 	}}
 
 	err := coll.FindOne(context.Background(), filter, &options.FindOneOptions{
@@ -44,12 +42,8 @@ func (e EstablishmentMongoInfrastructure) FindById(id string) (*entities.Establi
 		log.Printf("error: %v", err)
 		return nil, err
 	}
-	log.Printf("store: %v", store)
-	log.Printf("number of establishments: %v", len(store.Establishments))
 	for _, establishment := range store.Establishments {
-		log.Printf("establishment: %v", establishment)
 		if establishment.ID == id {
-			log.Printf("found")
 			return establishment.ToEntity(), nil
 		}
 	}
